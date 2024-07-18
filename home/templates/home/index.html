@@ -1,0 +1,47 @@
+{% extends "home/base.html" %}
+{% block start %}
+
+
+<div class="container mb-5">
+    <h1>This is Sent email</h1>
+
+    <a href="/contact/">
+        Contact
+    </a>
+    |
+    <a href="/about/">
+        About
+    </a>
+    <hr>
+    <a href="{% url 'send_email' %}" class="btn btn-success">Send Email</a>
+</div>
+
+
+
+<table class="container mt-5">
+    <tr>
+        <th>S.No</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Can vote</th>
+    </tr>
+
+    {% for p in people %}
+
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{p.name}}</td>
+        <td>{{p.age}}</td>
+        <td>
+            {% if p.age >= 18 %}
+            👍
+            {% else %}
+            👎
+            {% endif %}
+        </td>
+    </tr>
+
+    {% endfor %}
+</table>
+
+{% endblock %}

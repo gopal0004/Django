@@ -1,0 +1,70 @@
+{% extends "home/base.html" %}
+{% block start %}
+
+<div class="container mt-5">
+  <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2>Add Receipe</h2>
+    <hr>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Receipe Name</label>
+      <input name="receipe_name" required type="text" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Receipe Description</label>
+      <textarea class="form-control" name="receipe_description" required></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Receipe Image</label>
+      <input name="receipe_image" type="file" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-success">Add Receipe</button>
+  </form>
+
+  <hr>
+  <div class="mt-5">
+    <div class="mx-auto col-6">
+      <form>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Search Food</label>
+        <input name="search" type="text" class="form-control">
+      </div>
+
+        <button type="submit" class="btn btn-primary mb-2">Search</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<table class="table">
+  <tr>
+    <th scope="col">No</th>
+    <th scope="col">Reeipe Name</th>
+    <th scope="col">Receipe Description</th>
+    <th scope="col">Receipe Image</th>
+    <th scope="col">Delete</th>
+    <th scope="col">Update</th>
+  </tr>
+
+  <body>
+    {% for receipe in receipes %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{receipe.receipe_name}}</td>
+      <td>{{receipe.receipe_description}}</td>
+      <td>
+        <img src="/{{receipe.receipe_image}}" style="height: 100px">
+      </td>
+      <td>
+        <a href="/delete-receipe/{{receipe.slug}}/" class="btn btn-danger">Delete</a>
+      </td>
+      <td>
+        <a href="/update-receipe/{{receipe.slug}}/" class="btn btn-success">Update</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </body>
+</table>
+</div>
+
+{% endblock %}
